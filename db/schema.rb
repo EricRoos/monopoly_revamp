@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_17_044617) do
+ActiveRecord::Schema.define(version: 2018_07_17_160551) do
 
   create_table "games", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "status"
@@ -18,6 +18,16 @@ ActiveRecord::Schema.define(version: 2018_07_17_044617) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_games_on_user_id"
+  end
+
+  create_table "invitations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "game_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "declined"
+    t.index ["game_id"], name: "index_invitations_on_game_id"
+    t.index ["user_id"], name: "index_invitations_on_user_id"
   end
 
   create_table "money_transactions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -54,6 +64,8 @@ ActiveRecord::Schema.define(version: 2018_07_17_044617) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "invitations", "games"
+  add_foreign_key "invitations", "users"
   add_foreign_key "money_transactions", "players"
   add_foreign_key "players", "games"
   add_foreign_key "players", "users"
