@@ -12,10 +12,18 @@ class Game < ApplicationRecord
     Player.create(user: new_user, game: self)
   end
 
+  def send_money(playerSender, playerReceiver, amount)
+    if playerSender.can_spend?(amount) && playerSender.game == playerReceiver.game
+      ActiveRecord::Base.transaction do
+        MoneyTransaction.create(player: playerSender, amount: -1 * amount)
+        MoneyTransaction.create(player: playerReceiver,  amount: amount)
+      end
+    end
+  end
+
   private
 
   def add_creator_as_player
     add_player(user)
   end
-
 end
