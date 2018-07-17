@@ -1,0 +1,32 @@
+---
+default:
+  adapter: mysql2
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password: 
+  host: localhost
+development:
+  adapter: mysql2
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password: test
+  host: mysql
+  database: monopoly_development
+test:
+  adapter: mysql2
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password: test
+  host: mysql
+  database: monopoly_test
+production:
+  adapter: mysql2
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: monopoly
+  password: "<%= ENV['MONOPOLY_DATABASE_PASSWORD'] %>"
+  host: localhost
+  database: monopoly_production
