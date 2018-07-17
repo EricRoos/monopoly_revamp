@@ -4,7 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  def test
-    1
+  has_many :games
+
+  def create_game
+    Game.create(user: self)
   end
 end
