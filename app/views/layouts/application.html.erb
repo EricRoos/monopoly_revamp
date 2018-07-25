@@ -7,9 +7,21 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <script type="text/javascript">
+      window.onerror=function(msg){
+        document.body.setAttribute("JSError", msg);
+      }
+    </script>
   </head>
 
   <body>
+    <div class='page-errors'>
+      <%= flash[:alert] %>
+    </div>
+    <div class='page-notices'>
+      <%= flash[:notice] %>
+    </div>
     <%= yield %>
   </body>
 </html>

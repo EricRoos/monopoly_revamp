@@ -14,8 +14,26 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  #Capybara.app_host = "http://#{ENV['TEST_APP_HOST']}:#{ENV['TEST_PORT']}"
+  Capybara.app_host = "http://#{ENV['HOSTNAME']}:3000"
+  Capybara.server_host  = '0.0.0.0';
+  Capybara.server_port  = '3000';
+  Capybara.javascript_driver = :selenium
+  Capybara.current_driver = Capybara.javascript_driver
+  #Capybara.run_server = false
 
+  args = ['--no-default-browser-check', '--start-maximized']
+  caps = Selenium::WebDriver::Remote::Capabilities.chrome("chromeOptions" => {"args" => args})
+  Capybara.register_driver :selenium do |app|
+    Capybara::Selenium::Driver.new(
+        app,
+        browser: :remote,
+        url: "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub",
+        desired_capabilities: caps
+    )
+  end
   config.before(:suite) do
+    #%x[bundle exec rake assets:precompile]
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
   end
