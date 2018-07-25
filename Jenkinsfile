@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('init') {
       steps {
-        ls
+        sh 'ls'
       }
     }
   }
