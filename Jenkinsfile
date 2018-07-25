@@ -1,9 +1,11 @@
 pipeline {
-  agent { docker { image 'ruby:2.5.0' } }
+  agent any
   stages {
     stage('init') {
       steps {
-        sh 'ls'
+        withRvm {
+          sh 'bundle install'
+        }
       }
     }
   }
