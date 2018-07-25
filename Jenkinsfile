@@ -3,8 +3,8 @@ pipeline {
   stages {
     stage('init') {
       steps {
-        bundle install
+        ls
       }
     }
   }
-}
+
