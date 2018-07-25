@@ -1,10 +1,9 @@
 pipeline {
   agent any
   stages {
-    stage('') {
+    stage('init') {
       steps {
-        echo 'testing'
-        echo '3'
+        bundle install
       }
     }
   }
