@@ -3,7 +3,9 @@ pipeline {
   stages {
     stage('init') {
       steps {
-        sh 'rvm use 2.5.0'
+        withRvm('2.5.0') {
+          sh 'rvm use 2.5.0'
+        }
       }
     }
   }
