@@ -12,7 +12,7 @@ def withRvm(String version, String gemset, Closure cl) {
     // First, let's make sure Ruby version is present.
     withEnv(["PATH=${env.PATH}:$RVM_HOME", "RVM_HOME=$RVM_HOME"]) {
         // Having `rvm` command available, `rvm use` can be used directly:
-        sh "set +x; source $RVM_HOME/scripts/rvm; rvm use --create --install --binary $version@$gemset"
+        sh "set +x; . $RVM_HOME/scripts/rvm; rvm use --create --install --binary $version@$gemset"
     }
     // Because we've just made sure Ruby is installed and Gemset is present, Ruby env vars can be exported just as `rvm use` would set them.
     withEnv([
