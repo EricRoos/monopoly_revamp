@@ -1,0 +1,9 @@
+- @invitation ||= Invitation.new
+h3 Send Invitation
+= form_for [@game, @invitation], remote: true do |f|
+  ul
+    - @invitation.errors.full_messages.each do |msg|
+      li= msg
+  = f.label :user_id
+  = f.text_field :user_id
+  = f.submit

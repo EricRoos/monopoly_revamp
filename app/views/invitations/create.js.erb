@@ -1,0 +1,7 @@
+<% if @invitation.persisted? %>
+  $("#page-notices").html('Invitation Sent!');
+<% else  %>
+  $("#page-notices").html('');
+  $("#invitation-form-container").html('<%= j render partial: "invitations/form" %>');
+<% end %>
+

@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  resources :invitations
   resources :money_transactions
   resources :players
-  resources :games
+  resources :games do
+    resources :invitations
+  end
   devise_for :users
 
   authenticated :user do
