@@ -54,7 +54,7 @@ jobs:
       - run:
           name: precompile
           command: |
-            bundle install rake assets:precompile
+            bundle exec rake assets:precompile
 
       # run tests!
       - run:
