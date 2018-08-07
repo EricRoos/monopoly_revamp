@@ -15,9 +15,6 @@ SimpleCov.start 'rails'
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-require 'devise'
-require 'capybara'
-require 'selenium'
 RSpec.configure do |config|
   config.include Warden::Test::Helpers
 
