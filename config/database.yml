@@ -19,7 +19,7 @@ test:
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: <%= ENV.fetch("RAILS_DB_USERNAME") { 'root' } %>
-  password: test
+  password: <%= ENV.fetch("RAILS_DB_PASSWORD") { 'test'} %>
   host: mysql
   database: monopoly_test
 production:

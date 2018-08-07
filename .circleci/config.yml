@@ -10,6 +10,7 @@ jobs:
        - image: circleci/ruby:2.5.1-node-browsers
          environment:
           RAILS_DB_USERNAME: circleci
+          RAILS_DB_PASSWORD: test
           RAILS_ENV: test
           
        - image: circleci/mysql:5.7-ram
