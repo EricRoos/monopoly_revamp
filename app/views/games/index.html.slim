@@ -1,3 +1,5 @@
 h1 Games
+= render partial: 'invitations' if current_user.invitations.any?
 #games
 = link_to "Create Game", games_path, remote: true, method: :post
+

@@ -6,7 +6,10 @@ module WaitForAjax
   end
 
   def finished_all_ajax_requests?
-    page.evaluate_script('$.active').zero?
+    result = page.evaluate_script('$.active').zero? 
+    #meh... just wait a bit longer
+    sleep 0.05 if result
+    result
   end
 end
 

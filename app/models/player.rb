@@ -7,6 +7,8 @@ class Player < ApplicationRecord
   has_many :money_transactions
   after_create :set_initial_balance
 
+  delegate :email, to: :user
+
   def balance
     money_transactions.pluck(:amount).sum 
   end

@@ -2,6 +2,7 @@ class Invitation < ApplicationRecord
   belongs_to :user
   belongs_to :game
 
+  has_one :sender, through: :game, foreign_key: :user_id, source: :user
   validates_uniqueness_of :user, scope: :game
 
   before_create :check_if_player_exists

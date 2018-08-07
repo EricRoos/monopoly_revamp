@@ -1,0 +1,5 @@
+#user-invitations
+  div
+    = display_invite_number(current_user.invitations.count)
+  = link_to 'View All', invitations_path, remote: true
+  #invitations

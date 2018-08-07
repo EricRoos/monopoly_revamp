@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Invitation, type: :model do
+  describe '#sender' do
+    let(:game) { FactoryBot.create(:game) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:invitation) { FactoryBot.create(:invitation, user: user, game: game) }
+
+    it 'gets the sender' do
+      expect(invitation.sender).to eq(game.user)
+    end
+  end
 
   describe '#accept' do
     let(:game) { FactoryBot.create(:game) }

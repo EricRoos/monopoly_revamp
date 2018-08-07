@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :money_transactions
   resources :players
+
+  resources :invitations, only: [:index]
+  put 'invitations/:id/accept', as: :accept_invitation, to: 'invitations#accept'
+  put 'invitations/:id/decline', as: :decline_invitation, to: 'invitations#decline'
   resources :games do
     resources :invitations
   end

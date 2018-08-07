@@ -11,5 +11,17 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe InvitationsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe '#display_invite_number' do
+    context 'more than one invite' do
+      it 'displays the right message' do
+        expect(helper.display_invite_number(5)).to eq('(5) Invitations')
+      end
+    end
+
+    context 'one invite' do
+      it 'displays the right message' do
+        expect(helper.display_invite_number(1)).to eq('(1) Invitation')
+      end
+    end
+  end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Sending Invitations", :type => :feature, js: true do
+RSpec.feature "Invitations", :type => :feature, js: true do
   let(:user) {FactoryBot.create(:user) }
   let(:user_two) {FactoryBot.create(:user) }
   let(:game) {FactoryBot.create(:game, user: user) }
@@ -27,6 +27,31 @@ RSpec.feature "Sending Invitations", :type => :feature, js: true do
     wait_for_ajax
     expect(page).to_not have_content('Invitation Sent!')
     expect(page).to have_content('User already sent an invitation')
+  end
+
+  scenario "accepting an invitation" do
+    invite = Invitation.create(game: game, user: user_two)
+    login_as(user_two)
+    visit games_path
+    expect(page).to have_content('(1) Invitation')
+    click_on 'View All'
+    wait_for_ajax
+    expect(page).to have_content("Sent By: #{user.email}")
+    click_on 'Accept'
+    expect(page).to have_content("Game");
+    expect(find('#players')).to have_content(user_two.email)
+  end
+
+  scenario "declinig an invitation" do
+    invite = Invitation.create(game: game, user: user_two)
+    login_as(user_two)
+    visit games_path
+    expect(page).to have_content('(1) Invitation')
+    click_on 'View All'
+    wait_for_ajax
+    expect(page).to have_content("Sent By: #{user.email}")
+    click_on 'Decline'
+    expect(page).to have_content('Declined')
   end
 
   scenario "not allowed to send an invitation" do
