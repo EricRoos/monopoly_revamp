@@ -30,7 +30,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
-        version: 17.10.0-ce
+          version: 18.03.1-ce
 
       # Download and cache dependencies
       - restore_cache:
