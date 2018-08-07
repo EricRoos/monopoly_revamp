@@ -84,4 +84,4 @@ jobs:
       - run:
           name: 'build docker image'
           command: |
-            docker info
+            docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
