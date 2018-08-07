@@ -22,23 +22,39 @@ RSpec.configure do |config|
   config.filter_run :focus => true
 
   #Capybara.app_host = "http://#{ENV['TEST_APP_HOST']}:#{ENV['TEST_PORT']}"
-  Capybara.app_host = "http://#{ENV['HOSTNAME']}:3000"
-  Capybara.server_host  = '0.0.0.0';
-  Capybara.server_port  = '3000';
-  Capybara.javascript_driver = :selenium
-  Capybara.current_driver = Capybara.javascript_driver
+  #Capybara.app_host = "http://#{ENV['HOSTNAME']}:3000"
+  #Capybara.server_host  = '0.0.0.0';
+  #Capybara.server_port  = '3000';
+  #Capybara.javascript_driver = :selenium
+  #Capybara.current_driver = Capybara.javascript_driver
   #Capybara.run_server = false
+  #
+  JS_DRIVER = :selenium_chrome_headless
+
+  Capybara.default_driver = :rack_test
+  Capybara.javascript_driver = JS_DRIVER
+  Capybara.default_max_wait_time = 2
 
   args = ['--no-default-browser-check', '--start-maximized']
   caps = Selenium::WebDriver::Remote::Capabilities.chrome("chromeOptions" => {"args" => args})
-  Capybara.register_driver :selenium do |app|
-    Capybara::Selenium::Driver.new(
-        app,
-        browser: :remote,
-        url: "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub",
-        desired_capabilities: caps
-    )
+  Capybara.register_driver :selenium
+  config.before(:each) do |example|
+    Capybara.current_driver = JS_DRIVER if example.metadata[:js]
+    Capybara.current_driver = :selenium if example.metadata[:selenium]
+    Capybara.current_driver = :selenium_chrome if example.metadata[:selenium_chrome]
   end
+
+  config.after(:each) do
+    Capybara.use_default_driver
+  end
+  #Capybara.register_driver :selenium do |app|
+  #  Capybara::Selenium::Driver.new(
+  #      app,
+  #      browser: :remote,
+  #      url: "http://#{ENV['SELENIUM_HOST']}:#{ENV['SELENIUM_PORT']}/wd/hub",
+  #      desired_capabilities: caps
+  #  )
+  #end
   config.before(:suite) do
     #%x[bundle exec rake assets:precompile]
     DatabaseCleaner.strategy = :transaction
