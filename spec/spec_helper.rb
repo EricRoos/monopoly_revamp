@@ -15,7 +15,6 @@ SimpleCov.start 'rails'
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-require 'warden/test/controller_helpers' 
 RSpec.configure do |config|
   config.include Warden::Test::Helpers
 
