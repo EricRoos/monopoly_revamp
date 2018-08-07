@@ -85,3 +85,4 @@ jobs:
           name: 'build docker image'
           command: |
             docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
+            docker build -f Dockerfile.production . -t monopoly_revamp:latest

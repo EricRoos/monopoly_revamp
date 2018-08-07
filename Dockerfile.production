@@ -1,0 +1,14 @@
+FROM circleci/ruby:2.5.1-node-browsers
+ENV RAILS_ENV production
+RUN mkdir /home/circleci/monopoly
+WORKDIR /home/circleci/monopoly
+COPY Gemfile /home/circleci/monopoly/Gemfile
+COPY Gemfile.lock /home/circleci/monopoly/Gemfile.lock
+RUN bundle install
+COPY . /home/circleci/monopoly
+USER root
+RUN chown -R circleci:circleci .
+USER circleci
+RUN bundle exec rake tmp:clear
+RUN bundle exec rake assets:clean
+RUN bundle exec rake assets:precompile
