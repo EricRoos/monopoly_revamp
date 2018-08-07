@@ -1,26 +1,19 @@
 class InvitationsController < ApplicationController
+  before_action :find_invitation, only: [:accept, :decline]
+  before_action :authorize, only: [:accept, :decline]
+
   def index
     @invitations = current_user.invitations.includes(:sender)
   end
 
   def accept
-    @invitation = Invitation.find(params[:id])
-    head :unauthorized and return unless @invitation.user == current_user
-    if @invitation.accept
-      redirect_to @invitation.game and return
-    else
-      render @invitation.game, notice: 'Something went wrong...'
-    end
+    @invitation.accept
+    redirect_to @invitation.game
   end
 
   def decline 
-    @invitation = Invitation.find(params[:id])
-    head :unauthorized and return unless @invitation.user == current_user
-    if @invitation.decline
-      redirect_to games_path, notice: 'Declined an invitation.' and return
-    else
-      render games_path, notice: 'Something went wrong...'
-    end
+    @invitation.decline
+    redirect_to games_path, notice: 'Declined an invitation.'
   end
 
   def create
@@ -41,5 +34,13 @@ class InvitationsController < ApplicationController
 
   def game
     @game ||= Game.find(params[:game_id])
+  end
+
+  def find_invitation
+    @invitation = Invitation.find(params[:id])
+  end
+
+  def authorize
+    head :unauthorized and return unless @invitation.user == current_user
   end
 end
