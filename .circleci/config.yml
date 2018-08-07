@@ -8,6 +8,15 @@ jobs:
     docker:
       # specify the version you desire here
        - image: circleci/ruby:2.5.1-node-browsers
+         environment:
+          RAILS_DB_USERNAME: circleci
+          RAILS_ENV: test
+          
+       - image: circleci/mysql:5.7-ram
+         environment:
+          MYSQL_USER: circleci
+          MYSQL_DB: monopoly_test
+          MYSQL_PASSWORD: test
       
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
