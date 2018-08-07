@@ -71,6 +71,7 @@ group :test do
   gem 'chromedriver-helper'
   gem 'database_cleaner'
   gem 'simplecov', require: false
+  gem 'rspec_junit_formatter', '~> 0.2.3'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
