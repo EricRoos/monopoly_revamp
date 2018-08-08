@@ -63,6 +63,7 @@ jobs:
           name: 'test env vars'
           command: 
             echo $TEST_VALUE
+            echo $RAILS_ENV
       - run:
           name: Setup Code Climate test-reporter
           command: |
