@@ -88,3 +88,8 @@ jobs:
             echo $RAILS_MASTER_KEY >> config/master.key
             docker build -f Dockerfile.production . -t ericroos13/monopoly_revamp:latest
             docker push ericroos13/monopoly_revamp:latest
+            
+      - run:
+          name: 'deploy'
+          command: |
+            ssh socialdj@159.89.228.107 ./update_server
