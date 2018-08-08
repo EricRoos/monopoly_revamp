@@ -1,6 +1,6 @@
 class InvitationsController < ApplicationController
   before_action :find_invitation, only: [:accept, :decline]
-  before_action :authorize, only: [:accept, :decline]
+  before_action :authorize_invite, only: [:accept, :decline]
 
   def index
     @invitations = current_user.invitations.includes(:sender)
@@ -17,12 +17,14 @@ class InvitationsController < ApplicationController
   end
 
   def create
-    head :unauthorized and return unless game.user == current_user
     @invitation = game.invitations.build(invitation_params)
-    @invitation.save
-    flash[:notice] = "Invitation Sent!"
-    status = :created if @invitation.persisted?
-    status = :bad_request if @invitation.errors.present? && !@invitation.persisted?
+    authorize @invitation
+    if @invitation.save
+      flash[:notice] = "Invitation Sent!"
+      status = :created if @invitation.persisted?
+    else
+      status = :bad_request
+    end
     render 'create', status: status
   end
 
@@ -40,7 +42,7 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.find(params[:id])
   end
 
-  def authorize
+  def authorize_invite
     head :unauthorized and return unless @invitation.user == current_user
   end
 end

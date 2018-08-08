@@ -9,6 +9,7 @@ class GamePolicy < ApplicationPolicy
   def show?
     game.user == user || game.users.include?(user)
   end
+
   class Scope < Scope
     def resolve
       scope.all
