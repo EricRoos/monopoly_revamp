@@ -14,4 +14,11 @@ RSpec.describe User, type: :model do
       
     end
   end
+
+  describe '#create_game' do
+    let(:user) { FactoryBot.create(:user) }
+    it 'creates a game' do
+      expect(user.create_game).to eq(Game.last)
+    end
+  end
 end
