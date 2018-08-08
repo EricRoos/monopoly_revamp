@@ -28,6 +28,11 @@ jobs:
     working_directory: ~/monopoly
 
     steps:
+      - run:
+          name: 'test env vars'
+          command: 
+            echo $TEST_VALUE
+            echo $RAILS_ENV
       - checkout
       - setup_remote_docker:
           version: 18.03.1-ce
@@ -59,11 +64,6 @@ jobs:
             bundle exec rake assets:clobber
             bundle exec rake assets:precompile
 
-      - run:
-          name: 'test env vars'
-          command: 
-            echo $TEST_VALUE
-            echo $RAILS_ENV
       - run:
           name: Setup Code Climate test-reporter
           command: |
