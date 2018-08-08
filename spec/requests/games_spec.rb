@@ -2,11 +2,27 @@ require 'rails_helper'
 
 RSpec.describe 'Games', type: :request do
   context 'html' do
-    it 'shows a game' do
-      sign_in FactoryBot.create(:user)
-      game = FactoryBot.create(:game)
-      get game_path(game)
-      expect(response).to have_http_status(200)
+    describe '#show' do
+      let(:user) { FactoryBot.create(:user) }
+      let(:game) { FactoryBot.create(:game) }
+      context 'user is not part of the game' do
+        it 'does not allow the user to view' do
+          sign_in user
+          get game_path(game)
+          expect(response).to have_http_status(:found)
+        end
+      end
+
+      context 'user is part of the game' do
+        before do
+          FactoryBot.create(:player, game: game, user: user)
+        end
+        it 'shows a game' do
+          sign_in user
+          get game_path(game)
+          expect(response).to have_http_status(200)
+        end
+      end
     end
   end
 

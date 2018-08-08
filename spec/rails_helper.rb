@@ -9,6 +9,7 @@ require 'rspec/rails'
 require 'support/factory_bot'
 require 'support/request_spec_helper.rb'
 require 'support/wait_for_ajax.rb'
+require "pundit/rspec"
 require 'spec_helper'
 # Add additional requires below this line. Rails is not loaded until this point!
 
