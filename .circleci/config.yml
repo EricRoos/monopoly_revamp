@@ -87,4 +87,4 @@ jobs:
             docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
             echo $RAILS_MASTER_KEY >> config/master.key
             docker build -f Dockerfile.production . -t monopoly_revamp:latest
-            docker push monopoly_revamp:latest
+            docker push ericroos13/monopoly_revamp:latest
