@@ -27,3 +27,4 @@
 
 /coverage/*
 /**/*.swp
+config/master.key
