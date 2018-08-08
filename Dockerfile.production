@@ -11,4 +11,5 @@ RUN chown -R circleci:circleci .
 USER circleci
 RUN bundle exec rake tmp:clear
 RUN bundle exec rake assets:clean
+RUN bundle exec rake assets:clobber
 RUN bundle exec rake assets:precompile
