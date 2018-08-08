@@ -92,4 +92,4 @@ jobs:
       - run:
           name: 'deploy'
           command: |
-            ssh socialdj@159.89.228.107 ./update_server
+            ssh -o StrictHostKeyChecking=no socialdj@159.89.228.107 ./update_server
