@@ -61,8 +61,8 @@ jobs:
       - run:
           name: precompile
           command: |
-            bundle exec rake assets:clobber
-            bundle exec rake assets:precompile
+            RAILS_ENV=production bundle exec rake assets:clobber
+            RAILS_ENV=production bundle exec rake assets:precompile
 
       - run:
           name: Setup Code Climate test-reporter
