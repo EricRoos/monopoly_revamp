@@ -5,5 +5,7 @@ RSpec.feature "Create Game", :type => :feature, js: true do
   scenario "User has no prior games" do
     visit root_path
     expect(page).to have_content('Monopoly!')
+    expect(page).to have_content('Log in')
+    expect(page).to have_content('Sign up')
   end
 end
