@@ -28,5 +28,5 @@ production:
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: monopoly
   password: "<%= ENV['MONOPOLY_DATABASE_PASSWORD'] %>"
-  host: localhost
+  host: 0.0.0.0
   database: monopoly_production
