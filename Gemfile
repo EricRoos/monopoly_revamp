@@ -5,6 +5,9 @@ ruby '2.5.1'
 
 gem 'devise'
 gem 'pundit'
+gem 'bootstrap',     '~> 4.1.1'
+gem 'material-sass', '~> 4.1.1'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
 # Use mysql as the database for Active Record
