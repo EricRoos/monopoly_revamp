@@ -15,6 +15,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   config.include Warden::Test::Helpers
+  Capybara.default_max_wait_time = 30
 
   config.run_all_when_everything_filtered = true
   config.filter_run :focus => true
