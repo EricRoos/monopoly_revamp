@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe GamePolicy do
@@ -6,7 +8,7 @@ RSpec.describe GamePolicy do
 
   subject { described_class }
 
-  permissions ".scope" do
+  permissions '.scope' do
     pending "add some examples to (or delete) #{__FILE__}"
   end
 
@@ -21,7 +23,7 @@ RSpec.describe GamePolicy do
     end
 
     context 'user is not part of the game' do
-      it 'rejects the action' do 
+      it 'rejects the action' do
         expect(subject).to_not permit(user, game)
       end
     end

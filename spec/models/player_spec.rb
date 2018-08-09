@@ -1,20 +1,20 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Player, type: :model do
-
   describe '#can_spend?' do
     let(:player) { FactoryBot.create(:player) }
     let(:can_spend?) { player.can_spend?(spend_amount) }
     context 'has more than enough' do
-      let(:spend_amount) { Player::DEFAULT_BALANCE - 1}
+      let(:spend_amount) { Player::DEFAULT_BALANCE - 1 }
       it 'can spend' do
         expect(can_spend?).to eq(true)
       end
-
     end
 
     context 'has less than enough' do
-      let(:spend_amount) { Player::DEFAULT_BALANCE + 1}
+      let(:spend_amount) { Player::DEFAULT_BALANCE + 1 }
       it 'cannot spend' do
         expect(can_spend?).to eq(false)
       end

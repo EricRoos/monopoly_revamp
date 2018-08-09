@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
   context 'devise' do
-    let(:email){'bob@bob.com'}
-    let(:password){'password'}
+    let(:email) { 'bob@bob.com' }
+    let(:password) { 'password' }
     describe '#save' do
       before do
         User.create(email: email, password: password)
@@ -11,7 +13,6 @@ RSpec.describe User, type: :model do
       it 'saved with the email' do
         expect(User.where(email: email).first).to_not be_nil
       end
-      
     end
   end
 

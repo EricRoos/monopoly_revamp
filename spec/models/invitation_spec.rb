@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Invitation, type: :model do
@@ -20,8 +22,7 @@ RSpec.describe Invitation, type: :model do
         expect(invitation.accept).to_not be_nil
         expect(game.users).to include(user)
         expect(invitation.declined).to be false
-      end   
-
+      end
     end
     context 'user is in the game' do
       before do
@@ -46,14 +47,14 @@ RSpec.describe Invitation, type: :model do
     context 'prior invitation' do
       it 'does not create the second invitation' do
         FactoryBot.create(:invitation, game: game, user: user)
-        expect{ FactoryBot.create(:invitation, game: game, user:user) }.to raise_error(ActiveRecord::RecordInvalid)
+        expect { FactoryBot.create(:invitation, game: game, user: user) }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
 
     context 'user is a player in the game' do
       it 'does not create the second invitation' do
         FactoryBot.create(:player, user: user, game: game).as_json
-        expect{ FactoryBot.create(:invitation, game: game, user:user) }.to raise_error(ActiveRecord::RecordNotSaved)
+        expect { FactoryBot.create(:invitation, game: game, user: user) }.to raise_error(ActiveRecord::RecordNotSaved)
       end
     end
   end

@@ -1,13 +1,14 @@
+# frozen_string_literal: true
+
 class Game < ApplicationRecord
   belongs_to :user
   has_many :players
   has_many :invitations
   has_many :users, through: :players
   validates_presence_of :user
-  alias_method :owner, :user
+  alias owner user
 
   after_create :add_creator_as_player
-
 
   def add_player(new_user)
     Player.create(user: new_user, game: self)
@@ -17,7 +18,7 @@ class Game < ApplicationRecord
     if playerSender.can_spend?(amount) && (playerSender.game == playerReceiver.game) && playerSender.game == self
       ActiveRecord::Base.transaction do
         MoneyTransaction.create(player: playerSender, amount: -1 * amount)
-        MoneyTransaction.create(player: playerReceiver,  amount: amount)
+        MoneyTransaction.create(player: playerReceiver, amount: amount)
       end
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Invitations', type: :request do
@@ -9,14 +11,14 @@ RSpec.describe 'Invitations', type: :request do
       it 'declines the invitation' do
         sign_in user_two
         invitation = FactoryBot.create(:invitation, user: user_two, game: game)
-        expect {
+        expect do
           put decline_invitation_path(invitation)
-        }.to_not change{game.players.count}
+        end.to_not change { game.players.count }
         expect(response).to redirect_to(games_path)
       end
 
       context 'accepting for someone else' do
-        it 'does not accept the invite'  do
+        it 'does not accept the invite' do
           sign_in user
           invitation = FactoryBot.create(:invitation, user: user_two, game: game)
           put decline_invitation_path(invitation)
@@ -28,14 +30,14 @@ RSpec.describe 'Invitations', type: :request do
       it 'accepts the invitation' do
         sign_in user_two
         invitation = FactoryBot.create(:invitation, user: user_two, game: game)
-        expect {
+        expect do
           put accept_invitation_path(invitation)
-        }.to change{game.players.count}.from(1).to(2)
+        end.to change { game.players.count }.from(1).to(2)
         expect(response).to redirect_to(game_path(game))
       end
 
       context 'accepting for someone else' do
-        it 'does not accept the invite'  do
+        it 'does not accept the invite' do
           sign_in user
           invitation = FactoryBot.create(:invitation, user: user_two, game: game)
           put accept_invitation_path(invitation)
@@ -64,24 +66,24 @@ RSpec.describe 'Invitations', type: :request do
 
         context 'non game owner sends invitation' do
           it 'does not create the invitation' do
-            post game_invitations_path(FactoryBot.create(:game, user: user_two)), params: {invitation: {user_id: user_two.id}}, xhr: true
+            post game_invitations_path(FactoryBot.create(:game, user: user_two)), params: { invitation: { user_id: user_two.id } }, xhr: true
             expect(response).to have_http_status(401)
           end
         end
 
         context 'game owner sends invitation' do
           it 'creates a new game' do
-            post game_invitations_path(game), params: {invitation: {user_id: user_two.id}}, xhr: true
+            post game_invitations_path(game), params: { invitation: { user_id: user_two.id } }, xhr: true
             expect(response).to have_http_status(201)
           end
         end
 
         context 'already sent an invittion' do
           before do
-            post game_invitations_path(game), params: {invitation: {user_id: user_two.id}}, xhr: true
+            post game_invitations_path(game), params: { invitation: { user_id: user_two.id } }, xhr: true
           end
           it 'does not create the invitation' do
-            post game_invitations_path(game), params: {invitation: {user_id: user_two.id}}, xhr: true
+            post game_invitations_path(game), params: { invitation: { user_id: user_two.id } }, xhr: true
             expect(response).to have_http_status(400)
           end
         end

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class GamesController < ApplicationController
-  before_action :authenticate_user! 
+  before_action :authenticate_user!
   def show
     @game = Game.find(params[:id])
     authorize(@game)
@@ -12,7 +14,5 @@ class GamesController < ApplicationController
     end
   end
 
-  def index
-
-  end
+  def index; end
 end

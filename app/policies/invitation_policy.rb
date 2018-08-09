@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InvitationPolicy < ApplicationPolicy
   attr_reader :user, :invitation
 

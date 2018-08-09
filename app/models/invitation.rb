@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Invitation < ApplicationRecord
   belongs_to :user
   belongs_to :game
@@ -6,7 +8,7 @@ class Invitation < ApplicationRecord
   validates_uniqueness_of :user, scope: :game
 
   before_create :check_if_player_exists
-  
+
   def accept
     unless player_exists?
       ActiveRecord::Base.transaction do
@@ -17,9 +19,7 @@ class Invitation < ApplicationRecord
   end
 
   def decline
-    unless player_exists?
-      update_attributes(declined: true)
-    end
+    update_attributes(declined: true) unless player_exists?
   end
 
   protected

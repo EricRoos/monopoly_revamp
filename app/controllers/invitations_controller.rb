@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class InvitationsController < ApplicationController
-  before_action :find_invitation, only: [:accept, :decline]
-  before_action :authorize_invite, only: [:accept, :decline]
+  before_action :find_invitation, only: %i[accept decline]
+  before_action :authorize_invite, only: %i[accept decline]
 
   def index
     @invitations = current_user.invitations.includes(:sender)
@@ -11,7 +13,7 @@ class InvitationsController < ApplicationController
     redirect_to @invitation.game
   end
 
-  def decline 
+  def decline
     @invitation.decline
     redirect_to games_path, notice: 'Declined an invitation.'
   end
@@ -20,7 +22,7 @@ class InvitationsController < ApplicationController
     @invitation = game.invitations.build(invitation_params)
     authorize @invitation
     if @invitation.save
-      flash[:notice] = "Invitation Sent!"
+      flash[:notice] = 'Invitation Sent!'
       status = :created if @invitation.persisted?
     else
       status = :bad_request
@@ -31,7 +33,7 @@ class InvitationsController < ApplicationController
   protected
 
   def invitation_params
-    params.require(:invitation).permit(:user_id) 
+    params.require(:invitation).permit(:user_id)
   end
 
   def game
@@ -43,6 +45,6 @@ class InvitationsController < ApplicationController
   end
 
   def authorize_invite
-    head :unauthorized and return unless @invitation.user == current_user
+    head(:unauthorized) && return unless @invitation.user == current_user
   end
 end

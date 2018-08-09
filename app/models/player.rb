@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Player < ApplicationRecord
   DEFAULT_BALANCE = 1000
   belongs_to :user
@@ -10,13 +12,12 @@ class Player < ApplicationRecord
   delegate :email, to: :user
 
   def balance
-    money_transactions.pluck(:amount).sum 
+    money_transactions.pluck(:amount).sum
   end
 
   def can_spend?(amount)
     amount <= balance && amount > 0
   end
-
 
   protected
 

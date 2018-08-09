@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Game, type: :model do
@@ -15,7 +17,7 @@ RSpec.describe Game, type: :model do
     let(:receiver) { FactoryBot.create(:player, game: game) }
     let(:amount) { 20 }
     before :each do
-      game.send_money(sender,receiver, amount)  
+      game.send_money(sender, receiver, amount)
     end
     context 'sender has enough money' do
       it 'sends the money' do
@@ -41,7 +43,7 @@ RSpec.describe Game, type: :model do
     end
 
     context 'players are from different games' do
-      let(:sender){FactoryBot.create(:player)}
+      let(:sender) { FactoryBot.create(:player) }
       it 'does not sends the money' do
         expect(sender.balance).to eql(Player::DEFAULT_BALANCE)
         expect(receiver.balance).to eql(Player::DEFAULT_BALANCE)
@@ -50,8 +52,8 @@ RSpec.describe Game, type: :model do
   end
 
   describe '#add_player' do
-    let(:new_user){FactoryBot.create(:user)}
-    let(:game){ FactoryBot.create(:game) }
+    let(:new_user) { FactoryBot.create(:user) }
+    let(:game) { FactoryBot.create(:game) }
     before :each do
       game.add_player(new_user)
       game.reload
@@ -64,7 +66,7 @@ RSpec.describe Game, type: :model do
   end
 
   describe '::create' do
-    let(:game){ FactoryBot.create(:game) }
+    let(:game) { FactoryBot.create(:game) }
     before :each do
       game.reload
     end
