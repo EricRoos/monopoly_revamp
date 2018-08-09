@@ -17,7 +17,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   config.include Warden::Test::Helpers
-  Capybara.default_max_wait_time = 30
+  Capybara.default_max_wait_time = 45
 
   config.run_all_when_everything_filtered = true
   config.filter_run focus: true
@@ -36,8 +36,6 @@ RSpec.configure do |config|
   Capybara.javascript_driver = JS_DRIVER
   Capybara.default_max_wait_time = 2
 
-  args = ['--no-default-browser-check', '--start-maximized']
-  caps = Selenium::WebDriver::Remote::Capabilities.chrome('chromeOptions' => { 'args' => args })
   Capybara.register_driver :selenium
   config.before(:each) do |example|
     Capybara.current_driver = JS_DRIVER if example.metadata[:js]
