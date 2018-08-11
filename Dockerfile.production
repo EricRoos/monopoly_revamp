@@ -13,4 +13,4 @@ RUN bundle exec rake tmp:clear
 RUN bundle exec rake assets:clean
 RUN bundle exec rake assets:clobber
 RUN bundle exec rake assets:precompile
-CMD ["bundle", "exec", "rails", "puma"]
+CMD ["bundle", "exec", "puma"]
