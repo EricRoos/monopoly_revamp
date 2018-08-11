@@ -10,3 +10,4 @@ COPY Gemfile /home/circleci/monopoly/Gemfile
 COPY Gemfile.lock /home/circleci/monopoly/Gemfile.lock
 RUN bundle install
 COPY . /home/circleci/monopoly
+CMD ["bundle", "exec", "rails", "puma"]
