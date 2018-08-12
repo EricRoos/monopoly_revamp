@@ -1,2 +1,2 @@
-$('#page-notices').html("<%= flash[:notice] %>");
+$('#page-notices').html("<%=j display_alert(:info, flash[:notice]) %>");
 $("#management").html("<%=j render partial: 'management', locals: {game: @game} %>");

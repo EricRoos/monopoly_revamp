@@ -16,13 +16,14 @@
   </head>
 
   <body>
+    <%= render partial: 'shared/top_bar' %>
     <div class='page-errors'>
       <%= flash[:alert] %>
     </div>
+
     <div id='page-notices'>
-      <%= flash[:notice] %>
+      <%= display_alert(:info, flash[:notice]) if flash[:notice].present? %>
     </div>
-    <%= render partial: 'shared/top_bar' %>
     <%= yield %>
   </body>
 </html>

@@ -9,6 +9,7 @@ class GamesController < ApplicationController
 
   def create
     @game = Game.create(user: current_user)
+    flash[:notice] = 'Game Created!'
     respond_to do |format|
       format.js { render :create, status: 201 }
     end
