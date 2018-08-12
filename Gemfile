@@ -9,6 +9,7 @@ gem 'bootstrap', '~> 4.1.1'
 gem 'devise'
 gem 'material-sass', '~> 4.1.1'
 gem 'pundit'
+gem 'aasm'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'

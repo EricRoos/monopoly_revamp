@@ -16,37 +16,50 @@ RSpec.describe Game, type: :model do
     let(:sender) { FactoryBot.create(:player, game: game) }
     let(:receiver) { FactoryBot.create(:player, game: game) }
     let(:amount) { 20 }
-    before :each do
-      game.send_money(sender, receiver, amount)
-    end
-    context 'sender has enough money' do
-      it 'sends the money' do
-        expect(sender.balance).to eql(Player::DEFAULT_BALANCE - amount)
-        expect(receiver.balance).to eql(Player::DEFAULT_BALANCE + amount)
-      end
-    end
 
-    context 'sender doesnt have enough money' do
-      let(:amount) { Player::DEFAULT_BALANCE + 1 }
-      it 'does not sends the money' do
+    context 'game has not started' do
+      before :each do
+        game.send_money(sender, receiver, amount)
+      end
+      it 'does not send the money' do
         expect(sender.balance).to eql(Player::DEFAULT_BALANCE)
         expect(receiver.balance).to eql(Player::DEFAULT_BALANCE)
       end
     end
-
-    context 'tries to send negative amount' do
-      let(:amount) { -1 }
-      it 'does not sends the money' do
-        expect(sender.balance).to eql(Player::DEFAULT_BALANCE)
-        expect(receiver.balance).to eql(Player::DEFAULT_BALANCE)
+    context 'game has started' do
+      before :each do
+        game.start_game
+        game.send_money(sender, receiver, amount)
       end
-    end
+      context 'sender has enough money' do
+        it 'sends the money' do
+          expect(sender.balance).to eql(Player::DEFAULT_BALANCE - amount)
+          expect(receiver.balance).to eql(Player::DEFAULT_BALANCE + amount)
+        end
+      end
 
-    context 'players are from different games' do
-      let(:sender) { FactoryBot.create(:player) }
-      it 'does not sends the money' do
-        expect(sender.balance).to eql(Player::DEFAULT_BALANCE)
-        expect(receiver.balance).to eql(Player::DEFAULT_BALANCE)
+      context 'sender doesnt have enough money' do
+        let(:amount) { Player::DEFAULT_BALANCE + 1 }
+        it 'does not sends the money' do
+          expect(sender.balance).to eql(Player::DEFAULT_BALANCE)
+          expect(receiver.balance).to eql(Player::DEFAULT_BALANCE)
+        end
+      end
+
+      context 'tries to send negative amount' do
+        let(:amount) { -1 }
+        it 'does not sends the money' do
+          expect(sender.balance).to eql(Player::DEFAULT_BALANCE)
+          expect(receiver.balance).to eql(Player::DEFAULT_BALANCE)
+        end
+      end
+
+      context 'players are from different games' do
+        let(:sender) { FactoryBot.create(:player) }
+        it 'does not sends the money' do
+          expect(sender.balance).to eql(Player::DEFAULT_BALANCE)
+          expect(receiver.balance).to eql(Player::DEFAULT_BALANCE)
+        end
       end
     end
   end

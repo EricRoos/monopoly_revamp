@@ -29,6 +29,25 @@ RSpec.describe 'Games', type: :request do
   end
 
   context 'js' do
+    describe 'starting a game' do
+      let(:user){ FactoryBot.create(:user) }
+      let(:game){ FactoryBot.create(:game, user: user) }
+
+      context 'logged in' do
+        it 'starts a new game' do
+          sign_in user
+          post start_game_path(game), xhr: true
+          expect(response).to have_http_status(200)
+        end
+      end
+      context 'not logged in' do
+        it 'does not create a new game' do
+          post start_game_path(game), xhr: true
+          expect(response).to have_http_status(401)
+        end
+      end
+    end
+
     describe 'creating a new game' do
       context 'logged in' do
         it 'creates a new game' do

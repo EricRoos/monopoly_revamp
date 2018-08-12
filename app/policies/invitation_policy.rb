@@ -2,6 +2,7 @@
 
 class InvitationPolicy < ApplicationPolicy
   attr_reader :user, :invitation
+  delegate :game, to: :invitation
 
   def initialize(user, invitation)
     @user = user
@@ -9,7 +10,15 @@ class InvitationPolicy < ApplicationPolicy
   end
 
   def create?
-    invitation.game.user == user
+    game.user == user && game.setting_up?
+  end
+
+  def accept?
+    invitation.user == user && game.setting_up?
+  end
+
+  def decline?
+    invitation.user == user && game.setting_up?
   end
 
   class Scope < Scope

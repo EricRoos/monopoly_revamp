@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   put 'invitations/:id/accept', as: :accept_invitation, to: 'invitations#accept'
   put 'invitations/:id/decline', as: :decline_invitation, to: 'invitations#decline'
   resources :games do
+    member do
+      post :start
+    end
     resources :invitations
   end
   devise_for :users

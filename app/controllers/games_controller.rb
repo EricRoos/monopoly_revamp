@@ -14,5 +14,14 @@ class GamesController < ApplicationController
     end
   end
 
+  def start
+    @game = Game.find(params[:id])
+    @game.start_game!
+    flash[:notice] = 'Game Started!'
+    respond_to do |format|
+      format.js { render :start, status: 200 }
+    end
+  end
+
   def index; end
 end

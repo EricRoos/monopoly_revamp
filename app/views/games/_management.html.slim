@@ -1,2 +1,6 @@
-#invitation-form-container
-  = render partial: 'invitations/form'
+- if game.may_start_game?
+  #actions
+      = link_to 'Start Game', start_game_path(game), method: :post, remote: true
+- if game.setting_up?
+  #invitation-form-container
+    = render partial: 'invitations/form'
