@@ -18,7 +18,7 @@
   <body>
     <%= render partial: 'shared/top_bar' %>
     <div class='page-errors'>
-      <%= flash[:alert] %>
+      <%= display_alert(:danger, flash[:alert]) if flash[:alert].present? %>
     </div>
 
     <div id='page-notices'>
