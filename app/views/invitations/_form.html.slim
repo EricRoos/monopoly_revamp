@@ -4,6 +4,7 @@ h3 Send Invitation
   ul
     - @invitation.errors.full_messages.each do |msg|
       li= msg
-  = f.label :user_id
-  = f.text_field :user_id
-  = f.submit
+  .form-group
+    = f.label :user_id
+    = f.text_field :user_id, class: 'form-control', placeholder: 'User ID'
+  = f.submit class: 'btn btn-primary'

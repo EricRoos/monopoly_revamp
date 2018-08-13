@@ -1,6 +1,7 @@
-h1 Game
+h1= game_title(@game)
 #management
   = render partial: 'management', locals: {game: @game} if @game.owner == current_user
 #players
-  = render @game.players.includes(:user)
+  h2 Players
+  = render partial: 'players/card', collection: @game.players.includes(:user), as: :player
 

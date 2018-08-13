@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-# :nocov:
 module GamesHelper
+  def game_title(game)
+    "Game ##{game.id}"
+  end
 end
-# :nocov:

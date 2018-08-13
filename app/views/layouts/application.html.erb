@@ -17,13 +17,15 @@
 
   <body>
     <%= render partial: 'shared/top_bar' %>
-    <div class='page-errors'>
+    <div id='page-errors'>
       <%= display_alert(:danger, flash[:alert]) if flash[:alert].present? %>
     </div>
 
     <div id='page-notices'>
       <%= display_alert(:info, flash[:notice]) if flash[:notice].present? %>
     </div>
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

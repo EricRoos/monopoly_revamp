@@ -25,6 +25,8 @@ RSpec.feature 'Invitations', type: :feature, js: true do
     fill_in 'invitation[user_id]', with: user_two.id
     click_button('Create Invitation')
     wait_for_ajax
+    visit game_path(game)
+    fill_in 'invitation[user_id]', with: user_two.id
     click_button('Create Invitation')
     wait_for_ajax
     expect(page).to_not have_content('Invitation Sent!')
