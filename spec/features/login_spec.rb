@@ -10,7 +10,7 @@ RSpec.feature 'User Login', type: :feature do
     fill_in 'Email', with: user.email
     fill_in 'Password', with: password
     click_button 'Log in'
-    expect(page).to have_text('Games')
+    expect(page).to have_text("User ID: ##{user.id}")
   end
 
   scenario 'User fails to log in' do

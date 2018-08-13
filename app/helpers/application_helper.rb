@@ -6,6 +6,10 @@ module ApplicationHelper
     render partial: 'shared/alert_box', locals: {type: type, message: message}
   end
 
+  def user_id_display(user)
+    "User ID: ##{user.id}"
+  end
+
   def resource_name
     :user
   end

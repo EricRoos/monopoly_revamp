@@ -27,6 +27,12 @@
         <a class="nav-link disabled" href="#">Disabled</a>
       </li>
     </ul>
-    <%= link_to 'Log Out', destroy_user_session_path, method: :delete if current_user.present?%>
+    <% if current_user.present? %> 
+      <%= user_id_display(current_user) %>
+    <% else %>
+      <b>
+        <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
+      </b>
+    <% end %>
   </div>
 </nav>
