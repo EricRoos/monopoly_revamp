@@ -24,5 +24,7 @@ class GamesController < ApplicationController
     end
   end
 
-  def index; end
+  def index
+    @games = current_user.games
+  end
 end

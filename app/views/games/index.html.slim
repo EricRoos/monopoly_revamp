@@ -1,5 +1,7 @@
 h1 Games
 = render partial: 'invitations' if current_user.invitations.any?
+= link_to "Create Game", games_path, remote: true, method: :post, class: 'btn btn-primary mb-2'
 #games
-= link_to "Create Game", games_path, remote: true, method: :post
+  .list-group
+    = render @games
 
